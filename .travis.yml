@@ -13,12 +13,12 @@ before_script:
 script:
 # - "./mvnw clean install -B"
 # - "./mvnw clean package -DskipTests"
-- "./mvnw clean package -DskipTests dockerfile:deploy -Ddocker.repository=$TRAVIS_REPO_SLUG"
+- "./mvnw clean install package -DskipTests dockerfile:build -Ddocker.repository=$TRAVIS_REPO_SLUG"
 
 # after_success:
 # - docker login -u $DOCKER_USER -p $DOCKER_PASS
 # - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
-# - export IMAGE_NAME=$DOCKER_USER/fhir-adaptor
+# - export IMAGE_NAME=sivaprasadreddy/freelancerkit
 # - docker build -t $IMAGE_NAME:$COMMIT .
 # - docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
 # - docker push $IMAGE_NAME
