@@ -12,13 +12,14 @@ before_script:
 - jdk_switcher use $JDK
 script:
 # - "./mvnw clean install -B"
-# - "./mvnw clean package -DskipTests"
-- "./mvnw clean install package -DskipTests dockerfile:build dockerfile:push -Ddocker.repository=$TRAVIS_REPO_SLUG"
+- "./mvnw clean install -DskipTests dockerfile:build"
 
 # after_success:
-# - docker login -u $DOCKER_USER -p $DOCKER_PASS
-# - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
-# - export IMAGE_NAME=sivaprasadreddy/freelancerkit
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
+- export IMAGE_NAME=robdykedotcom/openehr-care-connect-adaptor
 # - docker build -t $IMAGE_NAME:$COMMIT .
-# - docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
-# - docker push $IMAGE_NAME
+- docker tag travis/fhir-adaptor:latest $IMAGE_NAME:$COMMIT
+- docker tag travis/fhir-adaptor:latest $IMAGE_NAME:$TAG
+- docker push $IMAGE_NAME:$COMMIT
+- docker push $IMAGE_NAME:$TAG
