@@ -90,11 +90,21 @@
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>1.3.6</version>
+                <executions>
+                  <execution>
+                    <id>default</id>
+                    <goals>
+                      <goal>build</goal>
+                      <goal>push</goal>
+                    </goals>
+                  </execution>
+                </executions>
                 <configuration>
-                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
-                    <buildArgs>
-                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
-                    </buildArgs>
+                  <repository>${docker.repository}</repository>
+                  <tag>${project.version}</tag>
+                  <buildArgs>
+                    <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                  </buildArgs>
                 </configuration>
             </plugin>
         </plugins>
