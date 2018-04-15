@@ -1,0 +1,9 @@
+env:
+  - JDK=openjdk8
+dist: trusty
+before_script:
+  - jdk_switcher use $JDK
+
+script:
+  - ./mvnw clean install -B
+  - ./mvnw clean package -DskipTests
