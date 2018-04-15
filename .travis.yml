@@ -14,12 +14,13 @@ script:
 # - "./mvnw clean install -B"
 - "./mvnw clean install -DskipTests dockerfile:build"
 
+cache:
+  directories:
+    - $HOME/.m2
+
 # after_success:
 - docker login -u $DOCKER_USER -p $DOCKER_PASS
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
 - export IMAGE_NAME=robdykedotcom/openehr-care-connect-adaptor
-# - docker build -t $IMAGE_NAME:$COMMIT .
-- docker tag travis/fhir-adaptor:latest $IMAGE_NAME:$TRAVIS_COMMIT
-- docker tag travis/fhir-adaptor:latest $IMAGE_NAME:$TAG
-- docker push $IMAGE_NAME:$TRAVIS_COMMIT
+- docker build -t $IMAGE_NAME:$TAG .
 - docker push $IMAGE_NAME:$TAG
